@@ -15,7 +15,7 @@ function HomeStackSreen() {
   return (
     <homeStack.Navigator>
       <homeStack.Screen name="Home" component={HomeScreen} options={option}/>
-      <homeStack.Screen name="Giao dịch" component={GiaoDichScreen} options={option}/>
+      <homeStack.Screen name="GiaoDich" component={GiaoDichScreen} options={option}/>
     </homeStack.Navigator>
   );
 }

@@ -1,8 +1,30 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
 import CartThongKe from '../components/cardThongKe'
 
 export default class ThongKeCreen extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      thong_ke: [
+        {
+          id: '01/01/2020',
+          chi: 200,
+          thu: 250
+        },
+        {
+          id: '02/01/2020',
+          chi: 250,
+          thu: 250
+        },
+        {
+          id: '03/01/2020',
+          chi: 2000,
+          thu: 250
+        }
+      ]
+    }
+  }
   render() {
     return (
       <ScrollView>
@@ -15,9 +37,12 @@ export default class ThongKeCreen extends React.Component {
             <Text style={{color: '#FFF', fontSize: 25, fontWeight: 'bold'}}>Tháng</Text>
           </View>
         </View>
-        <CartThongKe />
-        <CartThongKe />
-        <CartThongKe />
+
+        <FlatList 
+          data={this.state.thong_ke}
+          renderItem={({item}) => <CartThongKe info={item}/>}
+          style={styles.list}
+        />
       </View>
       </ScrollView>
     );

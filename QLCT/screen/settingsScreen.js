@@ -16,11 +16,11 @@ export default class SettingsCreen extends React.Component {
         </View>
         <View style={styles.settings}>
           <Image source={ThongBao} style={styles.img}/>
-          <Text style={styles.text}>Ngôn ngữ</Text>
+          <Text style={styles.text}>Thông báo</Text>
         </View>
         <View style={styles.settings}>
           <Image source={AboutUs} style={styles.img}/>
-          <Text style={styles.text}>Ngôn ngữ</Text>
+          <Text style={styles.text}>About us</Text>
         </View>
         <View style={styles.vatata}>
           <Image source={Money} style={{height: 171,width: 150}}/>

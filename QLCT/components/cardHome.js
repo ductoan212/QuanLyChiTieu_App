@@ -10,15 +10,15 @@ export default function CardHome(props) {
       <View style={styles.container}>
         <View style={styles.info}>
             <Text style={styles.date}>{info.date}</Text>
-            <Text style={styles.name} numberOfLines={1}>{info.name}</Text>
+            <Text style={styles.name} numberOfLines={2}>{info.name}</Text>
             <Text style={styles.note} numberOfLines={3}>{info.note}</Text>
         </View>
-        <TouchableOpacity activeOpacity={0.8}>
+        {/* //<TouchableOpacity activeOpacity={0.8}> */}
         <View style={styles.price}>
             <Text style={styles.chiTieu}>{chiTieu}</Text>
             <Text style={styles.money}>{`${info.money}k`}</Text>
         </View>
-        </TouchableOpacity>
+        {/* </TouchableOpacity> */}
       </View>
     );
 }

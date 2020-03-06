@@ -41,30 +41,30 @@ export default class HomeScreen extends React.Component {
           chi: 1,
           money: 200
         },
-        {
-          id: 5,
-          date: '1/1/2020',
-          name: 'Gửi xe',
-          note: ' Gửi xe  tháng',
-          chi: 1,
-          money: 200
-        },
-        {
-          id: 8,
-          date: '1/1/2020',
-          name: 'Gửi xe',
-          note: ' Gửi x e hàng tháng',
-          chi: 1,
-          money: 200
-        },
-        {
-          id: 9,
-          date: '1/1/2020',
-          name: 'Gửi xe',
-          note: 'Gửi xe hàng tháng',
-          chi: 1,
-          money: 200
-        }
+        // {
+        //   id: 5,
+        //   date: '1/1/2020',
+        //   name: 'Gửi xe',
+        //   note: ' Gửi xe  tháng',
+        //   chi: 1,
+        //   money: 200
+        // },
+        // {
+        //   id: 8,
+        //   date: '1/1/2020',
+        //   name: 'Gửi xe',
+        //   note: ' Gửi x e hàng tháng',
+        //   chi: 1,
+        //   money: 200
+        // },
+        // {
+        //   id: 9,
+        //   date: '1/1/2020',
+        //   name: 'Gửi xe',
+        //   note: 'Gửi xe hàng tháng',
+        //   chi: 1,
+        //   money: 200
+        // }
       ]
     }
   }
@@ -106,6 +106,19 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    if(this.state.giao_dich.length == 0)
+      return(
+        <View style={styles.container}>
+        <View style={styles.icon}>
+          <Ionicons name={'ios-add'} size={60} color={'#FFF'} 
+          onPress={() => {navigation.navigate('GiaoDich', {categoryName: 'Giao dịch'})}}
+          />
+        </View>
+        <Text style={{marginTop: 50}}>Chưa có giao dịch</Text>
+        </View>
+      );
+
+
     const {navigation} = this.props;
     const i = 2;
     return (

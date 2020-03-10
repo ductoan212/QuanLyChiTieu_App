@@ -1,93 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView,FlatList, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, ScrollView,FlatList, TouchableOpacity, Alert, ImagePickerIOS } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { connect } from 'react-redux';
 
-import CartHome from '../components/cardHome'
+import CartHome from '../components/cardHome';
+import delItem from '../components/Actions'
 
-export default class HomeScreen extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      giao_dich: [
-        {
-          id: 1,
-          date: '1/1/2020',
-          name: 'Gửi xe',
-          note: ' Gửi xe hàng tháng',
-          chi: 1,
-          money: 200
-        },
-        {
-          id: 2,
-          date: '2/1/2020',
-          name: 'Thuê trọ',
-          note: 'Trọ tháng 1',
-          chi: 1,
-          money: 2000
-        },
-        {
-          id: 3,
-          date: '2/1/2020',
-          name: 'Rút tiền',
-          note: 'Mẹ gửi',
-          chi: 0,
-          money: 5000
-        },
-        {
-          id: 4,
-          date: '1/1/2020',
-          name: 'Gửi xe',
-          note: ' xe hàng tháng',
-          chi: 1,
-          money: 200
-        },
-        // {
-        //   id: 5,
-        //   date: '1/1/2020',
-        //   name: 'Gửi xe',
-        //   note: ' Gửi xe  tháng',
-        //   chi: 1,
-        //   money: 200
-        // },
-        // {
-        //   id: 8,
-        //   date: '1/1/2020',
-        //   name: 'Gửi xe',
-        //   note: ' Gửi x e hàng tháng',
-        //   chi: 1,
-        //   money: 200
-        // },
-        // {
-        //   id: 9,
-        //   date: '1/1/2020',
-        //   name: 'Gửi xe',
-        //   note: 'Gửi xe hàng tháng',
-        //   chi: 1,
-        //   money: 200
-        // }
-      ]
-    }
-  }
-
-  componentDidMount() {
-    console.log('Component DID MOUNT!');
- }
-
-  componentDidUpdate(nextProps, nextState) {
-    console.log('Component WILL UPDATE!');
- }
-
-  deleteItem({item}) {
-    const index = this.state.giao_dich.indexOf(item);
-    const data = this.state.giao_dich.concat();
-    const newState = [...data.slice(0,index), ...data.slice(index+1)];
-    this.setState({
-      giao_dich: newState
-      });
-    console.log('OK Pressed',index,'\n', data);
-  }
+class HomeScreen extends React.Component {
 
   onLongPressFunction({item}) {
+    const { deleteItem } = this.props;
+    const {giao_dich} = this.props.data;
     Alert.alert(
       'Xóa giao dịch',
       'Xóa giao dịch ra khỏi bộ nhớ',
@@ -98,7 +21,10 @@ export default class HomeScreen extends React.Component {
         },
         {
           text: 'OK', 
-          onPress: () => this.deleteItem({item}),
+          onPress: () => {
+            const index = giao_dich.indexOf(item);
+            deleteItem(index)
+          },
         }
       ],
       {cancelable: false},
@@ -106,7 +32,12 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-    if(this.state.giao_dich.length == 0)
+    const {navigation} = this.props;
+    const i = 2;
+    const {giao_dich} = this.props.data;
+
+    console.log("home Render()", giao_dich);
+    if(giao_dich.length == 0)
       return(
         <View style={styles.container}>
         <View style={styles.icon}>
@@ -118,9 +49,6 @@ export default class HomeScreen extends React.Component {
         </View>
       );
 
-
-    const {navigation} = this.props;
-    const i = 2;
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -130,7 +58,7 @@ export default class HomeScreen extends React.Component {
           />
         </View>
         <FlatList 
-          data={this.state.giao_dich}
+          data={this.props.data.giao_dich.sort(compare)}
           renderItem={({item}) => 
             <TouchableOpacity activeOpacity={0.4} onLongPress={() => this.onLongPressFunction({item})}>
               <CartHome style={styles.card} info={item}/>
@@ -149,7 +77,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     // alignItems: 'center',
     // justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    
   },
   icon: {
     marginTop: 10,
@@ -170,4 +99,28 @@ const styles = StyleSheet.create({
     width: '100%'
   }
 });
+
+function compare(a, b) {
+  const dateA = a.date;
+  const dateB = b.date;
+  
+  if (dateA > dateB) {
+    return -1;
+  }
+
+  return 1;
+}
+
+export default connect(
+  state => {
+    return {
+      data: state
+    }
+  },
+  dispatch => {
+    return {
+      deleteItem: (index) => dispatch(delItem(index))
+    }
+  }
+)(HomeScreen);
 

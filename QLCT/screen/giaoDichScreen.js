@@ -1,5 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, Button, Alert } from 'react-native';
+import { connect } from 'react-redux';
+
+import {addItem} from '../components/Actions'
 
 function isDate(s)
 {
@@ -35,11 +38,11 @@ function createItem(id, date, name, note, chi, money) {
     name: name,
     note: note,
     chi: parseInt(chi, 10),
-    money: money
+    money: parseInt(money, 10)
   }
 }
 
-export default class GiaoDichScreen extends React.Component {
+class GiaoDichScreen extends React.Component {
 
   onPressButton({navigation}, date, name, note, chi, money) {
     console.log('press button Luu');
@@ -83,8 +86,12 @@ export default class GiaoDichScreen extends React.Component {
       return;
     }
 
-    const item = createItem(5, date, name, note, chi, money);
+    const item = createItem(0, date, name, note, chi, money);
     console.log(item);
+
+    const { AddNewItem } = this.props;
+    AddNewItem(item);
+    console.log("Finish function add");
     navigation.navigate('Home', {categoryName: 'Home'});
   }
 
@@ -198,3 +205,16 @@ const styles = StyleSheet.create({
     // padding: 50
   }
 });
+
+export default connect(
+  state => {
+    return {
+      data: state
+    }
+  },
+  dispatch => {
+    return {
+      AddNewItem: (item) => dispatch(addItem(item))
+    }
+  }
+)(GiaoDichScreen);

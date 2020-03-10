@@ -5,7 +5,7 @@ export default function CardHome(props) {
     const {info} = props;
     var chiTieu = 'Chi'
     if(info.chi == 0)
-      chiTieu = 'Tiêu';
+      chiTieu = 'Thu';
     return (
       <View style={styles.container}>
         <View style={styles.info}>
@@ -32,18 +32,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 6,
-    marginVertical: 10,
-    // width: '100%'
-    // height: 200
+    marginVertical: 10
   },
   info: {
       marginRight: 10,
-      // backgroundColor: '#99E5FD',
       display: 'flex',
-    //   alignItems: 'stretch',
-    //   justifyContent: 'flex-start',
       width: 70,
-      // height: 100,
       flexGrow: 1
   },
   price: {
@@ -67,26 +61,19 @@ const styles = StyleSheet.create({
       fontSize: 28,
       color: '#6DB5CB',
       fontWeight: 'bold',
-      // backgroundColor: 'red'
   },
   note: {
-    // padding: 5,
     color: '#FE7235',
     fontSize: 15,
-    // backgroundColor: 'grey',
-    // flexGrow: 1,
-    // flexShrink: 2
   },
   chiTieu: {
     color: '#FFF',
     fontWeight: 'bold',
     fontSize: 28,
-    // backgroundColor: 'yellow'
   },
   money: {
     color: '#FFF',
     fontSize: 20,
-    // backgroundColor: 'grey',
     textAlign: 'center'
   }
 });

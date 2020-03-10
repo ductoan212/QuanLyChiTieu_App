@@ -14,20 +14,20 @@ export default function CardHome (props) {
       <View style={styles.container_chi_thu}>
           <View style={styles.chi_thu}>
               <View style={styles.icon}>
-                  <Image source={Money} style={{height: 60, width: 60, borderRadius: 35}}/>
-              </View>
-              <View style={styles.info}>
-                  <Text style={styles.name}>Chi</Text>
-                  <Text style={styles.price}>{`${info.chi}k`}</Text>
-              </View>
-          </View>
-          <View style={styles.chi_thu}>
-              <View style={styles.icon}>
                   <Image source={Pig} style={{height: 60, width: 60, borderRadius: 35}}/>
               </View>
               <View style={styles.info}>
                   <Text style={styles.name}>Thu</Text>
                   <Text style={styles.price}>{`${info.thu}k`}</Text>
+              </View>
+          </View>
+          <View style={styles.chi_thu}>
+              <View style={styles.icon}>
+                  <Image source={Money} style={{height: 60, width: 60, borderRadius: 35}}/>
+              </View>
+              <View style={styles.info}>
+                  <Text style={styles.name}>Chi</Text>
+                  <Text style={styles.price}>{`${info.chi}k`}</Text>
               </View>
           </View>
       </View>
@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
       marginBottom: 20
   },
   date: {
-    //   backgroundColor: 'red',
   },
   container_chi_thu: {
     display: 'flex',

@@ -1,25 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, Button, Alert, Picker } from 'react-native';
 import { connect } from 'react-redux';
+import DatePicker from 'react-native-datepicker'
 
 import {addItem} from '../components/Actions'
-
-function isDate(s)
-{
-  const str=s;
-  // console.log(typeof(str));
-  for(var i=0; i<10; i++)
-  {
-    if(typeof(str[i]) == "undefined")
-      return false;
-    console.log(str[i]);
-    if(i==2 || i==5)
-      continue;
-    if(Number.isInteger(parseInt(str[i], 10)) == false )
-      return false;
-  }
-  return true;
-}
 
 function isNumber(n) {
   const str=n;
@@ -43,6 +27,13 @@ function createItem(id, date, name, note, chi, money) {
 }
 
 class GiaoDichScreen extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      selected: 1,
+      date: ""
+    }
+  }
 
   onPressButton({navigation}, date, name, note, chi, money) {
     console.log('press button Luu');
@@ -57,24 +48,6 @@ class GiaoDichScreen extends React.Component {
         'Bạn cần điền đầy đủ thông tin trước khi lưu',
       );
       return 0;
-    }
-    
-    if(isDate(date) == false)
-    {
-      Alert.alert(
-        'Ngày không đúng form',
-        'Ngày phải là dạng dd/mm/yyyy',
-      );
-      return;
-    }
-
-    if(chi.length != 1 || (chi[0]!='0' && chi[0]!='1'))
-    {
-      Alert.alert(
-        'Loại giao dịch không đúng',
-        'Loại giao dịch phải là số 0 hoặc 1',
-      );
-      return;
     }
 
     if(isNumber(money) == false)
@@ -91,12 +64,11 @@ class GiaoDichScreen extends React.Component {
 
     const { AddNewItem } = this.props;
     AddNewItem(item);
-    console.log("Finish function add");
     navigation.navigate('Home', {categoryName: 'Home'});
   }
 
   render() {
-    var date, name, note, chi, money, test;
+    var name, note, money;
     const {navigation} = this.props;
 
     return (
@@ -104,12 +76,38 @@ class GiaoDichScreen extends React.Component {
         <View style={styles.container}>
           <View style={styles.form}>
             <Text style={styles.text}>Ngày</Text>
-            <TextInput 
+            {/* <TextInput 
               placeholder="dd/mm/yyyy"
               style={styles.input}
               onChangeText={(text) => {date=text}}
               autoCompleteType={'cc-number'}
               keyboardType={'number-pad'}
+            /> */}
+
+            <DatePicker
+              style={{width: '100%'}}
+              date={this.state.date}
+              mode="date"
+              placeholder="Chọn ngày"
+              format="DD-MM-YYYY"
+              showIcon={false}
+              customStyles={{
+                dateInput: {
+                  borderWidth: 0,
+                  borderBottomWidth: 2,
+                  borderBottomColor: '#6DB5CB',
+                  alignItems: 'flex-start',
+                  paddingLeft: 10
+                },
+                dateText: {
+                  fontSize: 23,
+                },
+                placeholderText: {
+                  fontSize: 23
+                }
+              }}
+              onDateChange={(date) => {this.setState({date: date})
+              console.log(typeof(date), date)}}
             />
           </View>
 
@@ -136,12 +134,18 @@ class GiaoDichScreen extends React.Component {
 
           <View style={styles.form}>
             <Text style={styles.text}>Loại giao dịch(chi-1 /thu-0)</Text>
-            <TextInput 
-              placeholder="1/0"
+            <Picker
               style={styles.input}
-              onChangeText={(text) => {chi=text}}
-              keyboardType={'number-pad'}
-            />
+              selectedValue={this.state.selected}
+              textStyle={{fontSize: 20, color: 'orange'}}
+              onValueChange={(itemValue) => {
+                this.setState({selected: itemValue});
+                console.log(this.state.selected)}}
+              mode ={'dropdown'}
+              >
+              <Picker.Item label="Chi" value= {1} style={{fontSize: 25, height: 50}}/>
+              <Picker.Item label="Thu" value= {0} style={{fontSize: 25}}/>
+            </Picker>
           </View>
 
           <View style={styles.form}>
@@ -154,11 +158,13 @@ class GiaoDichScreen extends React.Component {
             />
           </View>
 
+          
+
           <Button 
             title='Lưu' 
             color='#FE7235' 
             onPress={
-              () => this.onPressButton({navigation}, date, name, note, chi, money)
+              () => this.onPressButton({navigation}, this.state.date, name, note, this.state.selected, money)
             }
           />
         </View>
@@ -169,8 +175,6 @@ class GiaoDichScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   form: {
     marginVertical: 10,
@@ -180,29 +184,17 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 25,
-    // paddingLeft: 20
     color: '#FE7235'
   },
   input: {
     marginTop: 10,
-    // marginVertical: 10,
-    // borderColor: '#6DB5CB',
     borderBottomWidth: 2,
     borderBottomColor: '#6DB5CB',
-    // borderLeftWidth: 2,
-    // borderLeftColor: '#6DB5CB',
-    // backgroundColor: '#BBB',
     paddingHorizontal: 10,
-    // borderRadius: 50,
     fontSize: 23,
-    // elevation: 2,
-    // color: '#5Ck5C5C',
     paddingBottom: 5
   },
   button: {
-    // marginHorizontal: 20,
-    // marginVertical: 20,
-    // padding: 50
   }
 });
 

@@ -10,7 +10,7 @@ const homeStack = createStackNavigator();
 export default function HomeStackSreen() {
   return (
     <homeStack.Navigator>
-      <homeStack.Screen name="Home" component={HomeScreen} options={option}/>
+      <homeStack.Screen name="Home" component={HomeScreen} options={{...option, title: "Trang chủ"}}/>
       <homeStack.Screen name="GiaoDich" component={GiaoDichScreen} options={{
         ...option,
         title: "Giao dịch"}}/>

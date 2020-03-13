@@ -15,7 +15,7 @@ let appState = {
   giao_dich: [
     {
       id: 1,
-      date: '01/01/2020',
+      date: '01-01-2020',
       name: 'Gửi xe',
       note: ' Gửi xe hàng tháng',
       chi: 1,
@@ -23,7 +23,7 @@ let appState = {
     },
     {
       id: 2,
-      date: '02/01/2020',
+      date: '02-01-2020',
       name: 'Thuê trọ',
       note: 'Trọ tháng 1',
       chi: 1,
@@ -31,7 +31,7 @@ let appState = {
     },
     {
       id: 3,
-      date: '02/01/2020',
+      date: '02-01-2020',
       name: 'Rút tiền',
       note: 'Mẹ gửi',
       chi: 0,
@@ -39,7 +39,7 @@ let appState = {
     },
     {
       id: 4,
-      date: '01/01/2020',
+      date: '01-01-2020',
       name: 'Gửi xe',
       note: ' xe hàng tháng',
       chi: 1,

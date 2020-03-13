@@ -76,14 +76,6 @@ class GiaoDichScreen extends React.Component {
         <View style={styles.container}>
           <View style={styles.form}>
             <Text style={styles.text}>Ngày</Text>
-            {/* <TextInput 
-              placeholder="dd/mm/yyyy"
-              style={styles.input}
-              onChangeText={(text) => {date=text}}
-              autoCompleteType={'cc-number'}
-              keyboardType={'number-pad'}
-            /> */}
-
             <DatePicker
               style={{width: '100%'}}
               date={this.state.date}

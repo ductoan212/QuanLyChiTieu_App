@@ -14,3 +14,19 @@ const delItem = (index) => {
 }
 
 export default delItem;
+
+export const loadData = (giao_dich, id) => {
+  return {
+    type: "LOAD",
+    giao_dich: giao_dich,
+    id: id
+  }
+}
+
+export const saveData = (giao_dich, id) => {
+  return {
+    type: "SAVE",
+    giao_dich: giao_dich,
+    id: id
+  }
+}

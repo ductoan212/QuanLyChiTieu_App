@@ -22,7 +22,7 @@ function creactItem(giao_dich)
 function creactItem_Month(giao_dich)
 {
   var item = {
-    id: giao_dich.date.slice(3),
+    id: giao_dich.date.slice(0,7),
     chi: 0,
     thu: 0
   }
@@ -83,7 +83,7 @@ function createArrTK_Month(giao_dich)
     var index = 0;
     for(var j=0; j<thong_ke.length; j++)
     {
-      if(giao_dich[i].date.slice(3) == thong_ke[j].id)
+      if(giao_dich[i].date.slice(0,7) == thong_ke[j].id)
       {
         flag = false;
         index = j;
@@ -134,10 +134,16 @@ class ThongKeScreen extends React.Component {
   }
   
   render() {
+    if( typeof(this.props.giao_dich)=='undefined' ||this.props.giao_dich.length == 0)
+      return (
+        <View style={styles.container}>
+          <Text style={{margin: 20, fontSize: 18}}>Chưa có giao dịch</Text>
+        </View>
+      )
+
     var data = createArrTK(this.props.giao_dich).sort(compare);
     if(this.state.option == 'thang')
       data = createArrTK_Month(this.props.giao_dich).sort(compare);
-    
     return (
       <ScrollView>
       <View style={styles.container}>
@@ -181,6 +187,8 @@ class ThongKeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    // alignItems: 'center',
+    justifyContent: 'center'
   },
   containerOption: {
     display: 'flex',

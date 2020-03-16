@@ -25,6 +25,7 @@ function createItem(id, date, name, note, chi, money) {
     money: parseInt(money, 10)
   }
 }
+var name, note, money;
 
 class GiaoDichScreen extends React.Component {
   constructor() {
@@ -37,6 +38,12 @@ class GiaoDichScreen extends React.Component {
 
   onPressButton({navigation}, date, name, note, chi, money) {
     console.log('press button Luu');
+
+    console.log("date:", date);
+    console.log("name:", name);
+    console.log("note:", note);
+    console.log("chi:", chi);
+    console.log("money:", money);
 
     if(typeof(date)=="undefined" || 
       typeof(name)=="undefined" ||
@@ -60,7 +67,7 @@ class GiaoDichScreen extends React.Component {
     }
 
     const item = createItem(0, date, name, note, chi, money);
-    console.log(item);
+    console.log("\n*********************",item,"\n*********************");
 
     const { AddNewItem } = this.props;
     AddNewItem(item);
@@ -68,7 +75,6 @@ class GiaoDichScreen extends React.Component {
   }
 
   render() {
-    var name, note, money;
     const {navigation} = this.props;
 
     return (
@@ -81,7 +87,7 @@ class GiaoDichScreen extends React.Component {
               date={this.state.date}
               mode="date"
               placeholder="Chọn ngày"
-              format="DD-MM-YYYY"
+              format="YYYY-MM-DD"
               showIcon={false}
               customStyles={{
                 dateInput: {
@@ -109,8 +115,6 @@ class GiaoDichScreen extends React.Component {
               placeholder="Vd: gửi xe"
               style={styles.input}
               onChangeText={(text) => {name=text}}
-              // autoCapitalize={'sentences'}
-              // autoCompleteType={'password'}
               textContentType={'telephoneNumber'}
             />
           </View>
